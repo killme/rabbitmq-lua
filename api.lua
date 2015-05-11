@@ -2,8 +2,8 @@
 -- AMQP/RabbitMQ Bindings for LuaJIT
 -- Requires at least librrabbitmq.so.1.0 (https://github.com/alanxz/rabbitmq-c)
 --
--- The contents of this file has been 
--- derived (by hand) from rabbitmq-c's amqp.h and amqp-framing.h 
+-- The contents of this file has been
+-- derived (by hand) from rabbitmq-c's amqp.h and amqp-framing.h
 --
 
 
@@ -220,7 +220,7 @@ typedef struct amqp_method_t_ {
 } amqp_method_t;
 
 typedef struct amqp_frame_t_ {
-  uint8_t frame_type; 
+  uint8_t frame_type;
   amqp_channel_t channel;
   union {
     amqp_method_t method;
@@ -250,7 +250,7 @@ typedef enum amqp_response_type_enum_ {
 typedef struct amqp_rpc_reply_t_ {
   amqp_response_type_enum reply_type;
   amqp_method_t reply;
-  int library_error; 
+  int library_error;
 } amqp_rpc_reply_t;
 
 typedef enum amqp_sasl_method_enum_ {
@@ -334,8 +334,8 @@ int
 
 int
  amqp_handle_input(amqp_connection_state_t state,
-		        amqp_bytes_t received_data,
-		        amqp_frame_t *decoded_frame);
+                amqp_bytes_t received_data,
+                amqp_frame_t *decoded_frame);
 
 
 amqp_boolean_t
@@ -372,37 +372,37 @@ amqp_boolean_t
 
 int
  amqp_simple_wait_frame(amqp_connection_state_t state,
-		       amqp_frame_t *decoded_frame);
+               amqp_frame_t *decoded_frame);
 
 
 int
  amqp_simple_wait_method(amqp_connection_state_t state,
-			      amqp_channel_t expected_channel,
-			      amqp_method_number_t expected_method,
-			      amqp_method_t *output);
+                  amqp_channel_t expected_channel,
+                  amqp_method_number_t expected_method,
+                  amqp_method_t *output);
 
 
 int
  amqp_send_method(amqp_connection_state_t state,
-		        amqp_channel_t channel,
-		        amqp_method_number_t id,
-		        void *decoded);
+                amqp_channel_t channel,
+                amqp_method_number_t id,
+                void *decoded);
 
 
 amqp_rpc_reply_t
  amqp_simple_rpc(amqp_connection_state_t state,
-		        amqp_channel_t channel,
-		        amqp_method_number_t request_id,
-		        amqp_method_number_t *expected_reply_ids,
-		        void *decoded_request_method);
+                amqp_channel_t channel,
+                amqp_method_number_t request_id,
+                amqp_method_number_t *expected_reply_ids,
+                void *decoded_request_method);
 
 
 void *
  amqp_simple_rpc_decoded(amqp_connection_state_t state,
-		        amqp_channel_t channel,
-			      amqp_method_number_t request_id,
-			      amqp_method_number_t reply_id,
-			      void *decoded_request_method);
+                amqp_channel_t channel,
+                  amqp_method_number_t request_id,
+                  amqp_method_number_t reply_id,
+                  void *decoded_request_method);
 
 
 
@@ -413,7 +413,7 @@ amqp_rpc_reply_t
 amqp_rpc_reply_t
  amqp_login(amqp_connection_state_t state, char const *vhost,
             int channel_max, int frame_max, int heartbeat,
-	          amqp_sasl_method_enum sasl_method, ...);
+              amqp_sasl_method_enum sasl_method, ...);
 
 struct amqp_basic_properties_t_;
 
@@ -421,14 +421,14 @@ struct amqp_basic_properties_t_;
 int
  amqp_basic_publish(amqp_connection_state_t state, amqp_channel_t channel,
             amqp_bytes_t exchange, amqp_bytes_t routing_key,
-		        amqp_boolean_t mandatory, amqp_boolean_t immediate,
-		        struct amqp_basic_properties_t_ const *properties,
-		        amqp_bytes_t body);
+                amqp_boolean_t mandatory, amqp_boolean_t immediate,
+                struct amqp_basic_properties_t_ const *properties,
+                amqp_bytes_t body);
 
 
 amqp_rpc_reply_t
  amqp_channel_close(amqp_connection_state_t state, amqp_channel_t channel,
-		        int code);
+                int code);
 
 
 amqp_rpc_reply_t
@@ -437,17 +437,17 @@ amqp_rpc_reply_t
 
 int
  amqp_basic_ack(amqp_connection_state_t state, amqp_channel_t channel,
-	          uint64_t delivery_tag, amqp_boolean_t multiple);
+              uint64_t delivery_tag, amqp_boolean_t multiple);
 
 
 amqp_rpc_reply_t
  amqp_basic_get(amqp_connection_state_t state, amqp_channel_t channel,
-	          amqp_bytes_t queue, amqp_boolean_t no_ack);
+              amqp_bytes_t queue, amqp_boolean_t no_ack);
 
 
 int
  amqp_basic_reject(amqp_connection_state_t state, amqp_channel_t channel,
-		        uint64_t delivery_tag, amqp_boolean_t requeue);
+                uint64_t delivery_tag, amqp_boolean_t requeue);
 
 
 amqp_boolean_t
@@ -461,7 +461,7 @@ char *
 
 int
  amqp_decode_table(amqp_bytes_t encoded, amqp_pool_t *pool,
-		        amqp_table_t *output, size_t *offset);
+                amqp_table_t *output, size_t *offset);
 
 
 int
@@ -476,11 +476,11 @@ struct amqp_connection_info {
 };
 
 
-void 
+void
  amqp_default_connection_info(struct amqp_connection_info *parsed);
 
 
-int 
+int
  amqp_parse_url(char *url, struct amqp_connection_info *parsed);
 
 
@@ -503,9 +503,9 @@ amqp_boolean_t
 
 int
  amqp_decode_method(amqp_method_number_t methodNumber,
-		   amqp_pool_t *pool,
-		   amqp_bytes_t encoded,
-		   void **decoded);
+           amqp_pool_t *pool,
+           amqp_bytes_t encoded,
+           void **decoded);
 
 
 int
@@ -517,14 +517,14 @@ int
 
 int
  amqp_encode_method(amqp_method_number_t methodNumber,
-		   void *decoded,
-		   amqp_bytes_t encoded);
+           void *decoded,
+           amqp_bytes_t encoded);
 
 
 int
  amqp_encode_properties(uint16_t class_id,
-		       void *decoded,
-		       amqp_bytes_t encoded);
+               void *decoded,
+               amqp_bytes_t encoded);
 
 /* Method field records. */
 
@@ -955,4 +955,3 @@ typedef struct amqp_confirm_properties_t_ {
 ]]
 
 return (ffi.load("librabbitmq.so.1"))
-
